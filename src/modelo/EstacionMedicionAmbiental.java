@@ -41,18 +41,4 @@ public class EstacionMedicionAmbiental {
 		return radiacion;		
 	}
 
-	public boolean desplegarMastil() {
-		//Simulamos que se recogen estos valores
-		getEstadoSensorUV();
-		getEstadoMastil();
-		getTemperatura();
-		getRadiacion();
-
-		if (estadoMastil == 1 && estadoSensorUV == 1 && (temperatura > -150 && temperatura < 214) && radiacion < 200) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 }

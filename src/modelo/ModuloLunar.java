@@ -23,25 +23,22 @@ public class ModuloLunar {
 
 	private IUModuloLunar iu;
 	
-	private EstacionMedicionAmbiental estacionMedicion;
-	private BateriaPanelSolar panel_izq,panel_drch;
-	
 	
 	public ModuloLunar(IUModuloLunar iu) {
 		
-		 this.iu=iu;
+		this.iu = iu;
 		
-		 iu.setMensajeConsola("INFO: Inicializando Modulo Visi�n....");
+		iu.setMensajeConsola("INFO: Inicializando Modulo Vision....");
 		
 		
 		mV = new ModuloVision();
-		iu.setMensajeConsola("INFO: M�dulo Visi�n inicializado....");
+		iu.setMensajeConsola("INFO: Modulo Vision inicializado....");
 		
 		iu.setMensajeConsola("INFO: Creando estructura de almacenamiento de rocas lunares detectadas....");
 	
 		
 		listaRocas = new ArrayList<RocaLunar>();
-		iu.setMensajeConsola("INFO: Creando mapa de c�digos de tipos de roca lunar....");
+		iu.setMensajeConsola("INFO: Creando mapa de codigos de tipos de roca lunar....");
 		
 		
 		mapaHashRocas = new HashMap<String, String>();
@@ -53,20 +50,10 @@ public class ModuloLunar {
 		iu.setMensajeConsola("INFO: Mapa de codigos de tipos de roca lunar creado....");
 		
 		
-		estacionMedicion=new EstacionMedicionAmbiental();
-		estacionMedicion.desplegarMastil();
-		iu.setMensajeConsola("INFO:Estacion de Medicion desplegada y opeartiva... ");
-		
-		panel_izq = new BateriaPanelSolar();
-		panel_drch = new BateriaPanelSolar();
-		panel_izq.getEstadoBateria();
-		panel_drch.getEstadoBateria();
-		iu.setMensajeConsola("INFO:Paneles Solares desplegados... ");
-		
 	}
 
 	/**
-	 * Desarrolla la tarea de la misis�n lunar: escanear superficie, recuento de
+	 * Desarrolla la tarea de la misison lunar: escanear superficie, recuento de
 	 * rocas detectadas y mostrar resultados
 	 */
 	public void desarrollarMisionReconocimiento() {	
@@ -78,7 +65,7 @@ public class ModuloLunar {
 	}
 	
 	public void cambiarModuloVisionAuxiliar() {
-		iu.setMensajeConsola("INFO: M�dulo Visi�n cambiado escaneando con modulo auxiliar....");
+		iu.setMensajeConsola("INFO: Modulo Vision cambiado escaneando con modulo auxiliar....");
 		this.mV= new ModuloVisionAuxiliar();
 	}
 
@@ -174,7 +161,7 @@ public class ModuloLunar {
 	private void mostrarResutados() {
 
 		
-		iu.setMensajeConsola(" RESULTADO DE LA MISIS�N DE RECONOCIMIENTO ++++++++++++++++++");
+		iu.setMensajeConsola(" RESULTADO DE LA MISION DE RECONOCIMIENTO ++++++++++++++++++");
 		for (RocaLunar roca : listaRocas) {
 			iu.setMensajeConsola(roca.toString());
 			

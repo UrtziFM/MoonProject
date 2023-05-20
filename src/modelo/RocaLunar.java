@@ -26,7 +26,7 @@ public class RocaLunar {
 		this.tipo = "";
 	}
 	
-	//Métodos de acceso	
+	//Mï¿½todos de acceso	
 	public String getTipo() {
 		return tipo;
 	}
@@ -39,7 +39,7 @@ public class RocaLunar {
 	}
 	public String toString() {
 		
-		return new String("Roca lunar : Tipo :"+this.tipo+":código :"+this.codigo+":recuento:"+this.recuento);
+		return new String("Roca lunar : Tipo :"+this.tipo+":codigo :"+this.codigo+":recuento:"+this.recuento);
 		
 	}
 	

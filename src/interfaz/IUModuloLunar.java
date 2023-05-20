@@ -200,25 +200,50 @@ public class IUModuloLunar extends JFrame implements ActionListener {
 		
   
 		// Registrar el manejador de eventos para los botones
+		ActionListener iniciarMisionListener = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setMensajeConsola("INFO: Las herramientas necesarias ya están listas, se puede iniciar la misión... ");
+			}
+		};
+
+		ActionListener activarEscanerListener = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setMensajeConsola("INFO: Escaner auxiliar activado ... ");
+			}
+		};
+
+		btnIniciarMision.addActionListener(iniciarMisionListener);
+		btnIniciarMision.setEnabled(false);
+
+		btnActivarEscanerAuxiliar.addActionListener(activarEscanerListener);
+		btnActivarEscanerAuxiliar.setEnabled(false);
 
 		// Primero el boton de estado de las herramientas del modulo lunar
 		// Debe ser independiente del boton de iniciar mision, y servira como control para iniciar la mision
 		// Si esta todo ok es cuando se puede iniciar la mision
-
 		btnVerInfoHerramientas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Primero comprobamos el estado de las herramientas
-				if(estacionMA.getEstadoMastil() == 0){
+				
+				int mastil = estacionMA.getEstadoMastil();
+
+				if(mastil == 0){
 					resultPaneles.setBackground(Color.RED);
+					setMensajeConsola("INFO: Paneles NO desplegados...");
 				} else {
 					resultPaneles.setBackground(Color.GREEN);
+					setMensajeConsola("INFO: Paneles desplegados...");
 				}
-	
-				if(estacionMA.getTemperatura() < -150 && estacionMA.getTemperatura() > 214){
+
+				int temp = estacionMA.getTemperatura();
+
+				if(temp > 214){
 					resultTemperatura.setBackground(Color.RED);
 				} else {
 					resultTemperatura.setBackground(Color.GREEN);
 				}
+
+				resultTemperatura.setText(String.valueOf(temp));
 	
 				if(estacionMA.getEstadoSensorUV() == 0){
 					resultSensoresUV.setBackground(Color.RED);
@@ -226,46 +251,38 @@ public class IUModuloLunar extends JFrame implements ActionListener {
 					resultSensoresUV.setBackground(Color.GREEN);
 				}
 
-				if(nivelBateria.getEstadoBateria() < 50){
+				int bat = nivelBateria.getEstadoBateria();
+
+				if(bat < 50){
 					resultNivelBateria.setBackground(Color.RED);
+					setMensajeConsola("INFO: Bateria inferior al 50%...");
 				} else {
 					resultNivelBateria.setBackground(Color.GREEN);
+					setMensajeConsola("INFO: Bateria superior al 50%...");
 				}
 
-				// Si estan todos las herramientas ok, desplegamos el mastir y habilitamos los botones 
+				resultNivelBateria.setText(String.valueOf(bat));
+				
+				// Si estan todos las herramientas ok, desplegamos el mastil y habilitamos los botones 
 				// El nivel de bateria no se tiene en cuenta ya que en caso de estar por debajo %50 vamos al escaner auxiliar
-				boolean todasLasHerramientasOK = estacionMA.desplegarMastil();
-		
-				if (todasLasHerramientasOK) {
-					// Habilitar los botones Iniciar Misión y Activar Escaner solo si todas las herramientas están OK
-					btnIniciarMision.addActionListener(this);
-					btnActivarEscanerAuxiliar.addActionListener(this);
+
+				if (mastil == 1 && bat > 50) {
+					btnIniciarMision.setEnabled(true);
+					btnActivarEscanerAuxiliar.setEnabled(false);
+				} else if(mastil == 1 && bat < 50){
+					btnIniciarMision.setEnabled(false);
+					btnActivarEscanerAuxiliar.setEnabled(true);
 				} else {
-					// Deshabilitar el botón Iniciar Misión y Activar Escaner si alguna herramienta no está en estado OK
-					btnIniciarMision.removeActionListener(this);
-					btnActivarEscanerAuxiliar.removeActionListener(this);
+					btnIniciarMision.setEnabled(false);
+					btnActivarEscanerAuxiliar.setEnabled(false);
 				}
 			}
 		});
-		
-		
+
 		// Mostrar la ventana
 		setVisible(true);
 	}
 	
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnIniciarMision) {
-
-			/**
-			 * PROGRAMAR LA LOGICA DE CONTROL DE PARA MANEJAR LOS EVENTOS DE LA INTERFAZ
-			 * 2.-Control bot�n iniciar misi�n ( ojo si el radio est� activado deber� realizarse con 
-			 * el M�dulo Auxiliar de vision
-			 * 
-			 */
-		} 
-	}
 	/**
 	 * SetMensaje permite imprimir un mensaje en el cuadro de texto de la interfaz gr�fica
 	 * @param msg
@@ -274,6 +291,13 @@ public class IUModuloLunar extends JFrame implements ActionListener {
 		String newline = "\n";
 		textMensajes.append(msg + newline);
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+
+		 
+	}
+	
 
 	public static void main(String[] args) {
 		// Crear y mostrar la interfaz gr�fica en el hilo de eventos de Swing
