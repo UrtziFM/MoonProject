@@ -46,8 +46,10 @@ public class IUModuloLunar extends JFrame implements ActionListener {
 	private JButton btnIniciarMision;
 	private JButton btnActivarEscanerAuxiliar;
 	private JPanel panelInfoControl;
+	private JLabel lblInfoControl;
 	private JTextArea textMensajes;
 	private JPanel panelInfoMision;
+	private JLabel lblInfoMision;
 	private JTextField resultMision;
 
 	//modelo asbtracto que manipula la IU
@@ -105,30 +107,33 @@ public class IUModuloLunar extends JFrame implements ActionListener {
 
 		panelNombreMision = new JPanel();
 		lblNombreMision = new JLabel("Viaje a la Luna");
-		panelNombreMision.setBackground(Color.WHITE);
-		panelNombreMision.setPreferredSize(new Dimension(900, 100));
+		panelNombreMision.setBackground(Color.GRAY);
+		panelNombreMision.setPreferredSize(new Dimension(1000, 50));
 
 		panelInferior = new JPanel();
-		panelInferior.setBackground(Color.WHITE);
-        panelInferior.setPreferredSize(new Dimension(600, 550));
-		panelInferior.setLayout(new GridLayout(1,3));
+		panelInferior.setPreferredSize(new Dimension(1000, 500));
 
 		panelBotones = new JPanel();
-		panelBotones.setBackground(Color.RED);
+		panelBotones.setBackground(Color.BLUE);
+		panelBotones.setPreferredSize(new Dimension(250, 100));
 		btnIniciarMision = new JButton("Iniciar mision de reconocimiento");
-		btnIniciarMision.setPreferredSize(new Dimension(100, 50));
-		btnActivarEscanerAuxiliar = new JButton("Activar Escaner Auxiliar");
-		btnActivarEscanerAuxiliar.setPreferredSize(new Dimension(200, 50));
+		btnIniciarMision.setPreferredSize(new Dimension(100, 40));
+		btnActivarEscanerAuxiliar = new JButton("Activar Modulo Vision Auxiliar");
+		btnActivarEscanerAuxiliar.setPreferredSize(new Dimension(100, 30));
 
 		panelInfoControl = new JPanel();
-		panelInfoControl.setBackground(Color.BLACK);
-		panelInfoControl.setPreferredSize(new Dimension(200, 150));
-		textMensajes = new JTextArea(50, 50);
+		panelInfoControl.setPreferredSize(new Dimension(300, 475));
+		lblInfoControl = new JLabel("Informacion Control");
+		lblInfoControl.setPreferredSize(new Dimension(50,50));
+		textMensajes = new JTextArea();
+		textMensajes.setBackground(Color.WHITE);
 
 		panelInfoMision = new JPanel();
-		panelInfoMision.setBackground(Color.GRAY);
-		panelInfoMision.setPreferredSize(new Dimension(200, 150));
+		panelInfoMision.setPreferredSize(new Dimension(400, 475));
+		lblInfoMision = new JLabel("Informacion Mision");
+		lblInfoMision.setPreferredSize(new Dimension(50,50));
 		resultMision = new JTextField();
+		resultMision.setBackground(Color.BLACK);
 
 		// Instanciamos el modulo lunar y le pasamos la propia refrencia a esta interfaz (enlace bidireccional)
 		// esto es importante porque Modulo lunar tienen que invocar metodos de la interfaz
@@ -161,14 +166,18 @@ public class IUModuloLunar extends JFrame implements ActionListener {
 		panelSuperior.add(panelBotonHerramientas, BorderLayout.WEST);
 		panelSuperior.add(panelControles, BorderLayout.EAST);
 
+		panelNombreMision.add(lblNombreMision, BorderLayout.SOUTH);
+
 		panelBotones.setLayout(new BorderLayout());
-		panelBotones.add(btnIniciarMision, BorderLayout.CENTER);
+		panelBotones.add(btnIniciarMision, BorderLayout.NORTH);
 		panelBotones.add(btnActivarEscanerAuxiliar, BorderLayout.SOUTH);
 
 		panelInfoControl.setLayout(new BorderLayout());
-		panelInfoControl.add(textMensajes, BorderLayout.CENTER);
+		panelInfoControl.add(lblInfoControl, BorderLayout.NORTH);
+		panelInfoControl.add(new JScrollPane(textMensajes), BorderLayout.CENTER);
 
 		panelInfoMision.setLayout(new BorderLayout());
+		panelInfoMision.add(lblInfoMision, BorderLayout.NORTH);
 		panelInfoMision.add(resultMision, BorderLayout.CENTER);
 
 		panelInferior.add(panelBotones, BorderLayout.WEST);
@@ -179,11 +188,6 @@ public class IUModuloLunar extends JFrame implements ActionListener {
 		add(panelSuperior, BorderLayout.NORTH);
 		add(panelNombreMision, BorderLayout.CENTER);
 		add(panelInferior, BorderLayout.SOUTH);
-		
-		/**
-		 * INICIALIZAR NUEVOS CONTROLES
-		 *
-		 */
 		
   
 		// Registrar el manejador de eventos para el bot�n

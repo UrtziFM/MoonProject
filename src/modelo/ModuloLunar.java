@@ -14,10 +14,10 @@ import interfaz.IUModuloLunar;
 
 public class ModuloLunar {
 
-	private String rutaArchivo = "filelunar.txt";// ruta de archivo donde se guardan las rocas reconocidas en la misión
-	private Map<String, String> mapaHashRocas;// lista <clave,valor> donde clave es el tipo de roca y valor su código
+	private String rutaArchivo = "filelunar.txt";// ruta de archivo donde se guardan las rocas reconocidas en la misiï¿½n
+	private Map<String, String> mapaHashRocas;// lista <clave,valor> donde clave es el tipo de roca y valor su cï¿½digo
 	//las asociaciones
-	private ModuloVisionAbstracto mV;// enlace con el Modulo de visión	
+	private ModuloVisionAbstracto mV;// enlace con el Modulo de visiï¿½n	
 	
 	private ArrayList<RocaLunar> listaRocas;
 
@@ -31,17 +31,17 @@ public class ModuloLunar {
 		
 		 this.iu=iu;
 		
-		 iu.setMensajeConsola("INFO: Inicializando Modulo Visión....");
+		 iu.setMensajeConsola("INFO: Inicializando Modulo Visiï¿½n....");
 		
 		
 		mV = new ModuloVision();
-		iu.setMensajeConsola("INFO: Módulo Visión inicializado....");
+		iu.setMensajeConsola("INFO: Mï¿½dulo Visiï¿½n inicializado....");
 		
 		iu.setMensajeConsola("INFO: Creando estructura de almacenamiento de rocas lunares detectadas....");
 	
 		
 		listaRocas = new ArrayList<RocaLunar>();
-		iu.setMensajeConsola("INFO: Creando mapa de códigos de tipos de roca lunar....");
+		iu.setMensajeConsola("INFO: Creando mapa de cï¿½digos de tipos de roca lunar....");
 		
 		
 		mapaHashRocas = new HashMap<String, String>();
@@ -50,12 +50,12 @@ public class ModuloLunar {
 		mapaHashRocas.put("highland", "3");
 		mapaHashRocas.put("regolith", "4");
 		mapaHashRocas.put("unknown", "5");
-		iu.setMensajeConsola("INFO: Mapa de códigos de tipos de roca lunar creado....");
+		iu.setMensajeConsola("INFO: Mapa de cï¿½digos de tipos de roca lunar creado....");
 		
 		
 		estacionMedicion=new EstacionMedicionAmbiental();
 		estacionMedicion.desplegarMastil();
-		iu.setMensajeConsola("INFO:Estacion de Medición desplegada y opeartiva... ");
+		iu.setMensajeConsola("INFO:Estacion de Mediciï¿½n desplegada y opeartiva... ");
 		
 		panel_izq=new PanelSolar();
 		panel_drch=new PanelSolar();
@@ -66,7 +66,7 @@ public class ModuloLunar {
 	}
 
 	/**
-	 * Desarrolla la tarea de la misisón lunar: escanear superficie, recuento de
+	 * Desarrolla la tarea de la misisï¿½n lunar: escanear superficie, recuento de
 	 * rocas detectadas y mostrar resultados
 	 */
 	public void desarrollarMisionReconocimiento() {	
@@ -78,18 +78,18 @@ public class ModuloLunar {
 	}
 	
 	public void cambiarModuloVisionAuxiliar() {
-		iu.setMensajeConsola("INFO: Módulo Visión cambiado escaneando con modulo auxiliar....");
+		iu.setMensajeConsola("INFO: Mï¿½dulo Visiï¿½n cambiado escaneando con modulo auxiliar....");
 		this.mV= new ModuloVisionAuxiliar();
 	}
 
 	/**
-	 * Método que hace el recuento de cada tipo de roca lunar detectada
+	 * Mï¿½todo que hace el recuento de cada tipo de roca lunar detectada
 	 * 
 	 * 
 	 */
 	private void recuento() {
 
-		// TAREA :recorrer el archivo creado por el modulo de visión y contar el tipo de
+		// TAREA :recorrer el archivo creado por el modulo de visiï¿½n y contar el tipo de
 
 		File archivo = new File(this.rutaArchivo);
 		FileReader fw = null;
@@ -103,7 +103,7 @@ public class ModuloLunar {
 			br = new BufferedReader(fw);
 			String lectura = null;
 			
-			//leer cada línea del archivo y acumular el número de rocas lunares de cada tipo detectado
+			//leer cada lï¿½nea del archivo y acumular el nï¿½mero de rocas lunares de cada tipo detectado
 			while ((lectura = br.readLine()) != null) {
 
 				if (lectura.equals(mapaHashRocas.get("basalt"))) {
@@ -124,7 +124,7 @@ public class ModuloLunar {
 				}
 			}
 
-			// Crear un objeto por cada roca lunar reconocida y añadir el número de ellas detectadas
+			// Crear un objeto por cada roca lunar reconocida y aï¿½adir el nï¿½mero de ellas detectadas
 			iu.setMensajeConsola("INFO: Creando estructura de rocas reconocidas");
 			//System.out.println("INFO: Creando estructura de rocas reconocidas");
 			RocaLunar r1 = new RocaLunar(1, "basalt");
@@ -169,12 +169,12 @@ public class ModuloLunar {
 	}
 
 	/**
-	 * Imprime el resultado del recuento de rocas lunares detectadas en la misión
+	 * Imprime el resultado del recuento de rocas lunares detectadas en la misiï¿½n
 	 */
 	private void mostrarResutados() {
 
 		
-		iu.setMensajeConsola(" RESULTADO DE LA MISISóN DE RECONOCIMIENTO ++++++++++++++++++");
+		iu.setMensajeConsola(" RESULTADO DE LA MISISï¿½N DE RECONOCIMIENTO ++++++++++++++++++");
 		for (RocaLunar roca : listaRocas) {
 			iu.setMensajeConsola(roca.toString());
 			
