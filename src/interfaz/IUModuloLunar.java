@@ -3,6 +3,8 @@ package interfaz;
 import javax.swing.*;
 
 import modelo.ModuloLunar;
+import modelo.EstacionMedicionAmbiental;
+import modelo.BateriaPanelSolar;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -53,6 +55,11 @@ public class IUModuloLunar extends JFrame implements ActionListener {
 	private JTextField resultMision;
 
 	//modelo asbtracto que manipula la IU
+
+	private EstacionMedicionAmbiental estacionMA = new EstacionMedicionAmbiental();
+
+	private BateriaPanelSolar nivelBateria = new BateriaPanelSolar();
+
 	private ModuloLunar moduloLunar;
 
 	public IUModuloLunar() {
@@ -73,7 +80,7 @@ public class IUModuloLunar extends JFrame implements ActionListener {
         panelSuperior.setPreferredSize(new Dimension(600, 250));
 
 		panelBotonHerramientas = new JPanel();
-		panelBotonHerramientas.setBackground(Color.RED);
+		panelBotonHerramientas.setBackground(Color.BLUE);
         panelBotonHerramientas.setPreferredSize(new Dimension(250, 40));
 		btnVerInfoHerramientas = new JButton("Comprobar Status Herramientas");
 
@@ -86,12 +93,14 @@ public class IUModuloLunar extends JFrame implements ActionListener {
 		plPaneles.setBackground(Color.WHITE);
 		resultPaneles = new JTextField();
 		resultPaneles.setBackground(Color.RED);
+	
 
 		plTemperatura = new JPanel();
 		lblTemperatura = new JLabel("Temperatura");
 		plTemperatura.setBackground(Color.WHITE);
 		resultTemperatura = new JTextField();
 		resultTemperatura.setBackground(Color.RED);
+		
 
 		plSensoresUV = new JPanel();
 		lblSensoresUV = new JLabel("Sensores UV");
@@ -190,25 +199,67 @@ public class IUModuloLunar extends JFrame implements ActionListener {
 		add(panelInferior, BorderLayout.SOUTH);
 		
   
-		// Registrar el manejador de eventos para el bot�n
-		btnIniciarMision.addActionListener(this);
+		// Registrar el manejador de eventos para los botones
+
+		// Primero el boton de estado de las herramientas del modulo lunar
+		// Debe ser independiente del boton de iniciar mision, y servira como control para iniciar la mision
+		// Si esta todo ok es cuando se puede iniciar la mision
+
+		btnVerInfoHerramientas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Primero comprobamos el estado de las herramientas
+				if(estacionMA.getEstadoMastil() == 0){
+					resultPaneles.setBackground(Color.RED);
+				} else {
+					resultPaneles.setBackground(Color.GREEN);
+				}
+	
+				if(estacionMA.getTemperatura() < -150 && estacionMA.getTemperatura() > 214){
+					resultTemperatura.setBackground(Color.RED);
+				} else {
+					resultTemperatura.setBackground(Color.GREEN);
+				}
+	
+				if(estacionMA.getEstadoSensorUV() == 0){
+					resultSensoresUV.setBackground(Color.RED);
+				} else {
+					resultSensoresUV.setBackground(Color.GREEN);
+				}
+
+				if(nivelBateria.getEstadoBateria() < 50){
+					resultNivelBateria.setBackground(Color.RED);
+				} else {
+					resultNivelBateria.setBackground(Color.GREEN);
+				}
+
+				// Si estan todos las herramientas ok, desplegamos el mastir y habilitamos los botones 
+				// El nivel de bateria no se tiene en cuenta ya que en caso de estar por debajo %50 vamos al escaner auxiliar
+				boolean todasLasHerramientasOK = estacionMA.desplegarMastil();
 		
-		/**
-		 * REGISTRAR NUEVOS MANEJADORES DE EVENTOS EN CONTROLES
-		 *
-		 */
+				if (todasLasHerramientasOK) {
+					// Habilitar los botones Iniciar Misión y Activar Escaner solo si todas las herramientas están OK
+					btnIniciarMision.addActionListener(this);
+					btnActivarEscanerAuxiliar.addActionListener(this);
+				} else {
+					// Deshabilitar el botón Iniciar Misión y Activar Escaner si alguna herramienta no está en estado OK
+					btnIniciarMision.removeActionListener(this);
+					btnActivarEscanerAuxiliar.removeActionListener(this);
+				}
+			}
+		});
+		
 		
 		// Mostrar la ventana
 		setVisible(true);
 	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnIniciarMision) {
-		
+
 			/**
 			 * PROGRAMAR LA LOGICA DE CONTROL DE PARA MANEJAR LOS EVENTOS DE LA INTERFAZ
-			 * 1.-Control bot�n ver estado de instrumentaci�n
 			 * 2.-Control bot�n iniciar misi�n ( ojo si el radio est� activado deber� realizarse con 
 			 * el M�dulo Auxiliar de vision
 			 * 

@@ -3,13 +3,13 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 /**
- * Clase que representa el módulo de acquisión de datos en misión lunar
+ * Clase que representa el mï¿½dulo de acquisiï¿½n de datos en misiï¿½n lunar
  * @author 
  *
  */
 public class ModuloVision extends ModuloVisionAbstracto {
 	
-	private String rutaArchivo="filelunar.txt";//ruta de archivo donde se guardan las rocas reconocidas en la misión
+	private String rutaArchivo="filelunar.txt";//ruta de archivo donde se guardan las rocas reconocidas en la misiï¿½n
 	private File fileRocas;//clase que representa el archivo
 	private FileWriter fw;// clase de escritura en archivo con flujo orientado a caracteres
 
@@ -28,7 +28,7 @@ public class ModuloVision extends ModuloVisionAbstracto {
 
 	}
 	
-	/** método que simula un reconocimiento de Rocas lunares
+	/** metodo que simula un reconocimiento de Rocas lunares
 	 * 
 	 */
 	public void escanearSuperficie() {
@@ -62,7 +62,7 @@ public class ModuloVision extends ModuloVisionAbstracto {
 
 	}
 	public static void main( String[] args ){
-		// Instanciar modulo de visión para prueba		
+		// Instanciar modulo de visiï¿½n para prueba		
 		ModuloVision mV=new ModuloVision();
 		//
 		mV.escanearSuperficie();

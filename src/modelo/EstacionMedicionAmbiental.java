@@ -1,42 +1,58 @@
 package modelo;
 
+import java.util.Random;
+
 public class EstacionMedicionAmbiental {
 
-	float temperatura;
-	float radiacion;
-	int estado_mastil;
-	int estado_sensor_ultrvioleta;
+	private int temperatura;
+	private int radiacion;
+	private int estadoMastil;
+	private int estadoSensorUV;
 
 	public EstacionMedicionAmbiental() {
 			
-		 temperatura=0.0f;//Grados celsius -150 a 214		 
-		 radiacion=0.0f;//W/m2
-		 estado_mastil=0; //O NO DESPLEGLADO, 1 DESPLEGADO
-		 estado_sensor_ultrvioleta=0;//O NO OPERATIVO, 1 OPERATIVO
+		 temperatura = 0; //Grados celsius -150 a 214		 
+		 radiacion = 0; //W/m2
+		 estadoMastil = 0 ; //O NO DESPLEGLADO, 1 DESPLEGADO
+		 estadoSensorUV = 0;//O NO OPERATIVO, 1 OPERATIVO
 	}
 
-	public void desplegarMastil() {
-		//Simulamos que se recogen estos valores
-		estado_mastil=1;
-		estado_sensor_ultrvioleta=1;
-		activarSensores();
-	}
-
-	public int getEstadoSensorUltra() {
-		return estado_sensor_ultrvioleta;
-
+	public int getEstadoSensorUV() {
+		Random random = new Random();
+		estadoSensorUV = random.nextInt(2); // Genera un número aleatorio de 0 o 1 
+		return estadoSensorUV;
 	}
 
 	public int getEstadoMastil() {
-		return estado_sensor_ultrvioleta;
-
+		Random random = new Random();
+		estadoMastil = random.nextInt(2); // Genera un número aleatorio de 0 o 1
+		return estadoMastil;
 	}
 	
-	public void activarSensores() {
-		// Este m�todo simula la activaci�n y lectura de sensores
-		temperatura=150;			
-		radiacion=110 ; 
+	public int getTemperatura() {
+		Random random = new Random();
+		temperatura = random.nextInt(501) - 200; // Genera un número aleatorio entre -200 y 300 (inclusive)
+		return temperatura;		
+	}
 
+	public int getRadiacion() {
+		Random random = new Random();
+		radiacion = random.nextInt(300); // Genera un número aleatorio entre 0 y 300
+		return radiacion;		
+	}
+
+	public boolean desplegarMastil() {
+		//Simulamos que se recogen estos valores
+		getEstadoSensorUV();
+		getEstadoMastil();
+		getTemperatura();
+		getRadiacion();
+
+		if (estadoMastil == 1 && estadoSensorUV == 1 && (temperatura > -150 && temperatura < 214) && radiacion < 200) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

@@ -24,7 +24,7 @@ public class ModuloLunar {
 	private IUModuloLunar iu;
 	
 	private EstacionMedicionAmbiental estacionMedicion;
-	private PanelSolar panel_izq,panel_drch;
+	private BateriaPanelSolar panel_izq,panel_drch;
 	
 	
 	public ModuloLunar(IUModuloLunar iu) {
@@ -50,17 +50,17 @@ public class ModuloLunar {
 		mapaHashRocas.put("highland", "3");
 		mapaHashRocas.put("regolith", "4");
 		mapaHashRocas.put("unknown", "5");
-		iu.setMensajeConsola("INFO: Mapa de c�digos de tipos de roca lunar creado....");
+		iu.setMensajeConsola("INFO: Mapa de codigos de tipos de roca lunar creado....");
 		
 		
 		estacionMedicion=new EstacionMedicionAmbiental();
 		estacionMedicion.desplegarMastil();
-		iu.setMensajeConsola("INFO:Estacion de Medici�n desplegada y opeartiva... ");
+		iu.setMensajeConsola("INFO:Estacion de Medicion desplegada y opeartiva... ");
 		
-		panel_izq=new PanelSolar();
-		panel_drch=new PanelSolar();
-		panel_izq.desplegar();
-		panel_drch.desplegar();
+		panel_izq = new BateriaPanelSolar();
+		panel_drch = new BateriaPanelSolar();
+		panel_izq.getEstadoBateria();
+		panel_drch.getEstadoBateria();
 		iu.setMensajeConsola("INFO:Paneles Solares desplegados... ");
 		
 	}
