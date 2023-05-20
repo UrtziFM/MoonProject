@@ -23,27 +23,30 @@ public class IUModuloLunar extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	
 	// Controles graficos de la IU
-	private JTextArea textMensajes;
 	private JPanel panelSuperior;
 	private JPanel panelBotonHerramientas;
 	private JButton btnVerInfoHerramientas;
 	private JPanel panelControles;
-	private JPanel panelCampos;
 	private JPanel plPaneles;
 	private JLabel lblPaneles;
-	private JLabel resultPaneles;
+	private JTextField resultPaneles;
 	private JPanel plTemperatura;
     private JLabel lblTemperatura;
-	private JLabel resultTemperatura;
+	private JTextField resultTemperatura;
 	private JPanel plSensoresUV;
 	private JLabel lblSensoresUV;
-	private JLabel resultSensoresUV;
+	private JTextField resultSensoresUV;
 	private JPanel plNivelBateria;
 	private JLabel lblNivelBateria;
-	private JLabel resultNivelBateria;
+	private JTextField resultNivelBateria;
 	private JPanel panelInferior;
+	private JPanel panelBotones;
 	private JButton btnIniciarMision;
 	private JButton btnActivarEscanerAuxiliar;
+	private JPanel panelInfoControl;
+	private JTextArea textMensajes;
+	private JPanel panelInfoMision;
+	private JTextField resultMision;
 
 	//modelo asbtracto que manipula la IU
 	private ModuloLunar moduloLunar;
@@ -57,81 +60,115 @@ public class IUModuloLunar extends JFrame implements ActionListener {
 		
 		// Configurar el titulo y el tamano de la ventana
 		setTitle("IU MODULO LUNAR");
-		setSize(1200, 800);
+		setSize(600, 800);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Crear componentes de la interfaz grafica
 		panelSuperior = new JPanel();
 		panelSuperior.setBackground(Color.BLACK);
-        panelSuperior.setPreferredSize(new Dimension(1000, 250));
+        panelSuperior.setPreferredSize(new Dimension(600, 250));
+
 		panelBotonHerramientas = new JPanel();
 		panelBotonHerramientas.setBackground(Color.RED);
         panelBotonHerramientas.setPreferredSize(new Dimension(250, 40));
-		btnVerInfoHerramientas = new JButton("Ver Estado de Información");
+		btnVerInfoHerramientas = new JButton("Comprobar Status Herramientas");
+
 		panelControles = new JPanel();
         panelControles.setPreferredSize(new Dimension(250, 240));
-		panelControles.setLayout(new BoxLayout(panelControles, BoxLayout.Y_AXIS));
-		panelCampos = new JPanel();
-        panelCampos.setPreferredSize(new Dimension(250, 240));
+		panelControles.setLayout(new GridLayout(4, 4));
+
 		plPaneles = new JPanel();
 		lblPaneles = new JLabel("Estado de los Paneles");
 		plPaneles.setBackground(Color.WHITE);
-		resultPaneles = new JLabel();
-		resultPaneles.setBackground(Color.WHITE);
+		resultPaneles = new JTextField();
+		resultPaneles.setBackground(Color.RED);
+
 		plTemperatura = new JPanel();
 		lblTemperatura = new JLabel("Temperatura");
-		plTemperatura.setBackground(Color.YELLOW);
-		resultTemperatura = new JLabel();
-		resultTemperatura.setBackground(Color.YELLOW);
+		plTemperatura.setBackground(Color.WHITE);
+		resultTemperatura = new JTextField();
+		resultTemperatura.setBackground(Color.RED);
+
 		plSensoresUV = new JPanel();
 		lblSensoresUV = new JLabel("Sensores UV");
 		plSensoresUV.setBackground(Color.WHITE);
-		resultSensoresUV = new JLabel();
-		resultSensoresUV.setBackground(Color.WHITE);
+		resultSensoresUV = new JTextField();
+		resultSensoresUV.setBackground(Color.RED);
+
 		plNivelBateria = new JPanel();
 		lblNivelBateria = new JLabel("Nivel de Batería");
-		plNivelBateria.setBackground(Color.YELLOW);
-		resultNivelBateria = new JLabel();
-		resultNivelBateria.setBackground(Color.YELLOW);
-		textMensajes = new JTextArea(50, 50);
+		plNivelBateria.setBackground(Color.WHITE);
+		resultNivelBateria = new JTextField();
+		resultNivelBateria.setBackground(Color.RED);
+
+		panelInferior = new JPanel();
+		panelInferior.setBackground(Color.WHITE);
+        panelInferior.setPreferredSize(new Dimension(600, 250));
+
+		panelBotones = new JPanel();
+		panelBotones.setBackground(Color.RED);
+		panelBotones.setPreferredSize(new Dimension(200, 200));
 		btnIniciarMision = new JButton("Iniciar mision de reconocimiento");
+		btnActivarEscanerAuxiliar = new JButton("Activar Escaner Auxiliar");
+
+		panelInfoControl = new JPanel();
+		panelInfoControl.setBackground(Color.BLACK);
+		panelInfoControl.setPreferredSize(new Dimension(200, 200));
+		textMensajes = new JTextArea(50, 50);
+
+		panelInfoMision = new JPanel();
+		panelInfoMision.setBackground(Color.GRAY);
+		panelInfoMision.setPreferredSize(new Dimension(200, 200));
+		resultMision = new JTextField();
 
 		// Instanciamos el modulo lunar y le pasamos la propia refrencia a esta interfaz (enlace bidireccional)
 		// esto es importante porque Modulo lunar tienen que invocar metodos de la interfaz
 		moduloLunar = new ModuloLunar(this);
 		
 		// Configurar la disposici0n de elementos de la interfaz grafica
+		panelControles.add(plPaneles);
+		panelControles.add(plTemperatura);
+		panelControles.add(plSensoresUV);
+		panelControles.add(plNivelBateria);
+
 		plPaneles.setLayout(new BorderLayout());
-		plTemperatura.setLayout(new BorderLayout());
-		plSensoresUV.setLayout(new BorderLayout());
-		plNivelBateria.setLayout(new BorderLayout());
-
 		plPaneles.add(lblPaneles, BorderLayout.CENTER);
-		plTemperatura.add(lblTemperatura, BorderLayout.CENTER);
-		plSensoresUV.add(lblSensoresUV, BorderLayout.CENTER);
-		plNivelBateria.add(lblNivelBateria, BorderLayout.CENTER);
-		
-		panelControles.add(plPaneles, BorderLayout.CENTER);
-		panelControles.add(plTemperatura, BorderLayout.CENTER);
-		panelControles.add(plSensoresUV, BorderLayout.CENTER);
-		panelControles.add(plNivelBateria, BorderLayout.CENTER);
+		plPaneles.add(resultPaneles, BorderLayout.SOUTH);
 
-		panelCampos.add(resultPaneles, BorderLayout.CENTER);
-		panelCampos.add(resultTemperatura, BorderLayout.CENTER);
-		panelCampos.add(resultSensoresUV, BorderLayout.CENTER);
-		panelCampos.add(resultNivelBateria, BorderLayout.CENTER);
+		plTemperatura.setLayout(new BorderLayout());
+		plTemperatura.add(lblTemperatura, BorderLayout.CENTER);
+		plTemperatura.add(resultTemperatura, BorderLayout.SOUTH);
+
+		plSensoresUV.setLayout(new BorderLayout());
+		plSensoresUV.add(lblSensoresUV, BorderLayout.CENTER);
+		plSensoresUV.add(resultSensoresUV, BorderLayout.SOUTH);
+
+		plNivelBateria.setLayout(new BorderLayout());
+		plNivelBateria.add(lblNivelBateria, BorderLayout.CENTER);
+		plNivelBateria.add(resultNivelBateria, BorderLayout.SOUTH);
 
 		panelBotonHerramientas.add(btnVerInfoHerramientas, BorderLayout.CENTER);
 
 		panelSuperior.add(panelBotonHerramientas, BorderLayout.WEST);
-		panelSuperior.add(panelControles, BorderLayout.CENTER);
-		panelSuperior.add(panelCampos, BorderLayout.EAST);
+		panelSuperior.add(panelControles, BorderLayout.EAST);
 
-		
+		panelBotones.setLayout(new BorderLayout());
+		panelBotones.add(btnIniciarMision, BorderLayout.CENTER);
+		panelBotones.add(btnActivarEscanerAuxiliar, BorderLayout.SOUTH);
+
+		panelInfoControl.setLayout(new BorderLayout());
+		panelInfoControl.add(textMensajes, BorderLayout.CENTER);
+
+		panelInfoMision.setLayout(new BorderLayout());
+		panelInfoMision.add(resultMision, BorderLayout.CENTER);
+
+		panelInferior.add(panelBotones, BorderLayout.WEST);
+		panelInferior.add(panelInfoControl, BorderLayout.CENTER);
+		panelInferior.add(panelInfoMision, BorderLayout.EAST);
+
 		// Agregar los componentes a la ventana
 		add(panelSuperior, BorderLayout.NORTH);
-		add(new JScrollPane(textMensajes), BorderLayout.CENTER);
-		add(btnIniciarMision, BorderLayout.SOUTH);
+		add(panelInferior, BorderLayout.SOUTH);
 		
 		/**
 		 * INICIALIZAR NUEVOS CONTROLES
