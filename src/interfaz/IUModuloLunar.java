@@ -39,6 +39,8 @@ public class IUModuloLunar extends JFrame implements ActionListener {
 	private JPanel plNivelBateria;
 	private JLabel lblNivelBateria;
 	private JTextField resultNivelBateria;
+	private JPanel panelNombreMision;
+	private JLabel lblNombreMision;
 	private JPanel panelInferior;
 	private JPanel panelBotones;
 	private JButton btnIniciarMision;
@@ -60,7 +62,7 @@ public class IUModuloLunar extends JFrame implements ActionListener {
 		
 		// Configurar el titulo y el tamano de la ventana
 		setTitle("IU MODULO LUNAR");
-		setSize(600, 800);
+		setSize(1000, 800);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Crear componentes de la interfaz grafica
@@ -101,24 +103,31 @@ public class IUModuloLunar extends JFrame implements ActionListener {
 		resultNivelBateria = new JTextField();
 		resultNivelBateria.setBackground(Color.RED);
 
+		panelNombreMision = new JPanel();
+		lblNombreMision = new JLabel("Viaje a la Luna");
+		panelNombreMision.setBackground(Color.WHITE);
+		panelNombreMision.setPreferredSize(new Dimension(900, 100));
+
 		panelInferior = new JPanel();
 		panelInferior.setBackground(Color.WHITE);
-        panelInferior.setPreferredSize(new Dimension(600, 250));
+        panelInferior.setPreferredSize(new Dimension(600, 550));
+		panelInferior.setLayout(new GridLayout(1,3));
 
 		panelBotones = new JPanel();
 		panelBotones.setBackground(Color.RED);
-		panelBotones.setPreferredSize(new Dimension(200, 200));
 		btnIniciarMision = new JButton("Iniciar mision de reconocimiento");
+		btnIniciarMision.setPreferredSize(new Dimension(100, 50));
 		btnActivarEscanerAuxiliar = new JButton("Activar Escaner Auxiliar");
+		btnActivarEscanerAuxiliar.setPreferredSize(new Dimension(200, 50));
 
 		panelInfoControl = new JPanel();
 		panelInfoControl.setBackground(Color.BLACK);
-		panelInfoControl.setPreferredSize(new Dimension(200, 200));
+		panelInfoControl.setPreferredSize(new Dimension(200, 150));
 		textMensajes = new JTextArea(50, 50);
 
 		panelInfoMision = new JPanel();
 		panelInfoMision.setBackground(Color.GRAY);
-		panelInfoMision.setPreferredSize(new Dimension(200, 200));
+		panelInfoMision.setPreferredSize(new Dimension(200, 150));
 		resultMision = new JTextField();
 
 		// Instanciamos el modulo lunar y le pasamos la propia refrencia a esta interfaz (enlace bidireccional)
@@ -168,6 +177,7 @@ public class IUModuloLunar extends JFrame implements ActionListener {
 
 		// Agregar los componentes a la ventana
 		add(panelSuperior, BorderLayout.NORTH);
+		add(panelNombreMision, BorderLayout.CENTER);
 		add(panelInferior, BorderLayout.SOUTH);
 		
 		/**
