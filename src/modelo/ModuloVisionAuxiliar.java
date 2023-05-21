@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class ModuloVisionAuxiliar extends ModuloVisionAbstracto{
 
-	private String rutaArchivo="filelunar.txt";//ruta de archivo donde se guardan las rocas reconocidas en la misión
+	private String rutaArchivo="filelunar.txt";//ruta de archivo donde se guardan las rocas reconocidas en la misiï¿½n
 	private File fileRocas;//clase que representa el archivo
 	private FileWriter fw;// clase de escritura en archivo con flujo orientado a caracteres
 
@@ -25,12 +25,12 @@ public class ModuloVisionAuxiliar extends ModuloVisionAbstracto{
 
 	}
 	
-	/** método que simula un reconocimiento de Rocas lunares
+	/** mï¿½todo que simula un reconocimiento de Rocas lunares
 	 * 
 	 */
 	public void escanearSuperficie() {
 		int cod;
-		System.out.println("INFO: Iniciando secuencia de reconocimiento con módulo auxiliar...");
+		System.out.println("INFO: Iniciando secuencia de reconocimiento con modulo auxiliar...");
 		
 		try {
 			
@@ -59,10 +59,8 @@ public class ModuloVisionAuxiliar extends ModuloVisionAbstracto{
 
 	}
 	public static void main( String[] args ){
-		// Instanciar modulo de visión para prueba		
-		ModuloVision mV=new ModuloVision();
-		//
-		mV.escanearSuperficie();
+	
+		// Dejamos que todo se interaccione desde la interfaz
 		
 	}
 }

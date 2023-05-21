@@ -52,7 +52,7 @@ public class IUModuloLunar extends JFrame implements ActionListener {
 	private JTextArea textMensajes;
 	private JPanel panelInfoMision;
 	private JLabel lblInfoMision;
-	private JTextField resultMision;
+	private JTextArea resultMision;
 
 	//modelo asbtracto que manipula la IU
 
@@ -60,7 +60,7 @@ public class IUModuloLunar extends JFrame implements ActionListener {
 
 	private BateriaPanelSolar nivelBateria = new BateriaPanelSolar();
 
-	private ModuloLunar moduloLunar;
+	private ModuloLunar moduloLunar = new ModuloLunar();
 
 	public IUModuloLunar() {
 		
@@ -115,8 +115,9 @@ public class IUModuloLunar extends JFrame implements ActionListener {
 		resultNivelBateria.setBackground(Color.RED);
 
 		panelNombreMision = new JPanel();
-		lblNombreMision = new JLabel("Viaje a la Luna");
-		panelNombreMision.setBackground(Color.GRAY);
+		lblNombreMision = new JLabel("Viaje a la Luna: Comprueba Estado Herramientas primero, se habilitaran los botones de Inicio segun capacidad");
+		lblNombreMision.setForeground(Color.BLACK);
+		panelNombreMision.setBackground(Color.YELLOW);
 		panelNombreMision.setPreferredSize(new Dimension(1000, 50));
 
 		panelInferior = new JPanel();
@@ -141,8 +142,9 @@ public class IUModuloLunar extends JFrame implements ActionListener {
 		panelInfoMision.setPreferredSize(new Dimension(400, 475));
 		lblInfoMision = new JLabel("Informacion Mision");
 		lblInfoMision.setPreferredSize(new Dimension(50,50));
-		resultMision = new JTextField();
+		resultMision = new JTextArea();
 		resultMision.setBackground(Color.BLACK);
+		resultMision.setForeground(Color.WHITE);
 
 		// Instanciamos el modulo lunar y le pasamos la propia refrencia a esta interfaz (enlace bidireccional)
 		// esto es importante porque Modulo lunar tienen que invocar metodos de la interfaz
@@ -187,7 +189,7 @@ public class IUModuloLunar extends JFrame implements ActionListener {
 
 		panelInfoMision.setLayout(new BorderLayout());
 		panelInfoMision.add(lblInfoMision, BorderLayout.NORTH);
-		panelInfoMision.add(resultMision, BorderLayout.CENTER);
+		panelInfoMision.add(new JScrollPane(resultMision), BorderLayout.CENTER);
 
 		panelInferior.add(panelBotones, BorderLayout.WEST);
 		panelInferior.add(panelInfoControl, BorderLayout.CENTER);
@@ -202,13 +204,16 @@ public class IUModuloLunar extends JFrame implements ActionListener {
 		// Registrar el manejador de eventos para los botones
 		ActionListener iniciarMisionListener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setMensajeConsola("INFO: Modulo Vision inicializado....");
 				setMensajeConsola("INFO: Las herramientas necesarias ya están listas, se puede iniciar la misión... ");
+				moduloLunar.desarrollarMisionReconocimiento();
 			}
 		};
 
 		ActionListener activarEscanerListener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setMensajeConsola("INFO: Escaner auxiliar activado ... ");
+				setMensajeConsola("INFO: Bateria inferior a 50%, Modulo Vision auxiliar activado ... ");
+				moduloLunar.cambiarModuloVisionAuxiliar();
 			}
 		};
 
@@ -290,6 +295,11 @@ public class IUModuloLunar extends JFrame implements ActionListener {
 	public void setMensajeConsola(String msg) {
 		String newline = "\n";
 		textMensajes.append(msg + newline);
+	}
+
+	public void setMensajeMision(String msgM) {
+		String newline = "\n";
+		resultMision.append(msgM + newline);
 	}
 
 	@Override

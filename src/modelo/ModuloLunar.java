@@ -32,7 +32,6 @@ public class ModuloLunar {
 		
 		
 		mV = new ModuloVision();
-		iu.setMensajeConsola("INFO: Modulo Vision inicializado....");
 		
 		iu.setMensajeConsola("INFO: Creando estructura de almacenamiento de rocas lunares detectadas....");
 	
@@ -52,6 +51,9 @@ public class ModuloLunar {
 		
 	}
 
+	public ModuloLunar() {
+	}
+
 	/**
 	 * Desarrolla la tarea de la misison lunar: escanear superficie, recuento de
 	 * rocas detectadas y mostrar resultados
@@ -66,11 +68,14 @@ public class ModuloLunar {
 	
 	public void cambiarModuloVisionAuxiliar() {
 		iu.setMensajeConsola("INFO: Modulo Vision cambiado escaneando con modulo auxiliar....");
-		this.mV= new ModuloVisionAuxiliar();
+		ModuloVisionAuxiliar mVAux = new ModuloVisionAuxiliar();
+		mVAux.escanearSuperficie();
+		recuento();
+		mostrarResutados();
 	}
 
 	/**
-	 * M�todo que hace el recuento de cada tipo de roca lunar detectada
+	 * Metodo que hace el recuento de cada tipo de roca lunar detectada
 	 * 
 	 * 
 	 */
@@ -161,9 +166,9 @@ public class ModuloLunar {
 	private void mostrarResutados() {
 
 		
-		iu.setMensajeConsola(" RESULTADO DE LA MISION DE RECONOCIMIENTO ++++++++++++++++++");
+		iu.setMensajeMision(" RESULTADO DE LA MISION DE RECONOCIMIENTO ++++++++++++++++++");
 		for (RocaLunar roca : listaRocas) {
-			iu.setMensajeConsola(roca.toString());
+			iu.setMensajeMision(roca.toString());
 			
 		}
 
@@ -171,9 +176,7 @@ public class ModuloLunar {
 
 	public static void main(String[] args) {
 		
-		// Instanciar Modulo de lectura
-		//ModuloLunar mL = new ModuloLunar();
-		//mL.desarrollarMisionReconocimiento();
+		// Dejamos que todo se interaccione desde la interfaz
 
 	}
 }
